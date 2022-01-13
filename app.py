@@ -16,7 +16,7 @@ app = Flask(__name__)
 app.config['MYSQL_HOST']='us-cdbr-east-05.cleardb.net'
 app.config['MYSQL_USER']='b5f3d54f1ae019'
 app.config['MYSQL_PASSWORD']='2577be25'
-app.config['MYSQL_DB']='Survey Database'
+app.config['MYSQL_DB']='heroku_8b3d35cf0aa7c8f'
 
 mysql=MySQL(app)
 
