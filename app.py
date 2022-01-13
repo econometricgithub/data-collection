@@ -13,8 +13,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_mysqldb import MySQL
 app = Flask(__name__)
 
-app.config['MYSQL_HOST']='b5f3d54f1ae019'
-app.config['MYSQL_USER']='us-cdbr-east-05.cleardb.net'
+app.config['MYSQL_HOST']='us-cdbr-east-05.cleardb.net'
+app.config['MYSQL_USER']='b5f3d54f1ae019'
 app.config['MYSQL_PASSWORD']='2577be25'
 app.config['MYSQL_DB']='Survey Database'
 
