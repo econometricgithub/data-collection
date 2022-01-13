@@ -1,0 +1,998 @@
+<html>
+  <head>
+     <title>Social Network Survey</title>
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	   integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+      <link rel="stylesheet" href="{{ url_for('static', filename='survey.css') }}">
+    <style>
+      .body-panel{
+             background-color: #2b6777;
+            }
+      .main{
+            border: dotted 1px blue;
+             min-height: 50px;
+            background-color:#919b9c;
+            }
+      .panel-danger{
+        background-color:#32a852;
+      }
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box
+}
+
+body {
+    background-color: #red;
+}
+
+.options {
+    position: relative;
+    padding-left: 40px
+}
+
+#options label {
+    display: block;
+    margin-bottom: 15px;
+    font-size: 14px;
+    cursor: pointer
+}
+
+.options input {
+    opacity: 0
+}
+
+.checkmark {
+    position: absolute;
+    top: -1px;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #555;
+    border: 1px solid #ddd;
+    border-radius: 50%
+}
+
+.options input:checked~.checkmark:after {
+    display: block
+}
+
+.options .checkmark:after {
+    content: "";
+    width: 10px;
+    height: 10px;
+    display: block;
+    background: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 300ms ease-in-out 0s
+}
+
+.options input[type="radio"]:checked~.checkmark {
+    background: #21bf73;
+    transition: 300ms ease-in-out 0s
+}
+
+.options input[type="radio"]:checked~.checkmark:after {
+    transform: translate(-50%, -50%) scale(1)
+}
+.div1 {
+  width: 900px;
+  height: 150px;
+  border: 3px dotted blue;
+  box-sizing: border-box;
+  background:#d3edef;
+}
+
+</style>
+  </head>
+  <body class="body-panel">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success fixed-top" id="mainNav">
+            <div class="container px-4">
+                <a class="navbar-brand" href="{{ url_for('home')}}">Home</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('survey')}}">Survey Questions</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+   <br>
+   <br>
+   <br>
+      <div class="row">
+          <div class="col-sm-2">
+          </div>
+                  <div class="col-sm-8 main">
+                    <div class="container"><br>
+                      <center>
+                          <h2><b>Social Network Survey</b></h2>
+                          <br>
+
+                        <div class="div1">
+                            <p class="text-justify">
+                            ယခုကောက်ယူသော စစ်တမ်းသည် မဟာဘွဲ့(ဒုတိယနှစ်)အတန်းတွင် ကျမ်းပြုစုရေးသားရန်အတွက်ကောက်ယူခြင်းဖြစ်ပါသည်။
+                            မြန်မာနိုင်ငံတွင် ဖေ့စဘွတ်ခ်(Facebook) အသုံးပြုခြင်းနှင့်ပတ်သက်ပြီး အချက်အလက်များအား လေ့လာစစ်တမ်းကောက်ယူခြင်းဖြစ်ပါသည်။ ကျေးဇူးပြုပြီး အောက်ဖေါ်ပြပါ
+                           ​မေးခွန်းများအားဖတ်ရှု၍ အသင့်လျော်ဆုံးအချက်များအား ရွေးချယ်ပေးကြပါရန်ဖြစ်ပါတယ်။ ရွေးချယ်ရမည့် အချက်အလက်များတွင် အဖြေများသည် မှားသည်၊ မှန်သည်ဟူ၍မရှိပါ။
+                           ထို့ကြောင့် ဖြေဆိုသူ​အနေနှင့် မိမိ၏ သဘောထားအမြင်ကိုသာ ရွေးပေးကြပါခင်ဗျာ။ စစ်တမ်းလွှာအား ယခုကဲ့သို့ အချိန်ပေး၍ဖြေကြားခြင်းအပေါ်ကျေးဇူးတင်ရှိပါသည်။
+                            </p>
+                        </div>
+                      </center>
+                    </div>
+                      <br>
+                       <div class="row align-items-center justify-content-center" >
+                          <div class="col-11">
+     <form action="{{ url_for('survey') }}" method="POST">
+                       <div class="question1 ml-sm-7 pl-sm-5 pt-2">
+                            <table>
+                                <thad>၁။ သင်သည်ဖေ့စဘွတ်(facebook)ကိုတစ်နေ့လျှင်ပျမ်းမျှဘယ်နာရီခန့်မျှအချိန်ပေးပြီိးသုံးဖြစ်ပါသလဲ။</thad>
+                                <tbody>
+                                    <tr>
+                                       <ul class='likert'>
+                                          <li>
+                                            <input type="radio" name="timespending" value="1">
+                                            <label>တစ်နေ့ပျမ်းမျှ တစ်နာရီအောက်နှင့်တစ်နာရီအတွင်း</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="timespending" value="2">
+                                            <label>တစ်နေ့ပျမ်းမျှ ၁ နာရီအထက်နှင့် ၃ နာရီအောက်</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="timespending" value="3">
+                                            <label>ပျမ်းမျှ ၃ နာရီနှင့် အထက်</label>
+                                          </li>
+                                       </ul>
+                                    </tr>
+                                </tbody>
+                          </table>
+                        </div>
+
+                <br>
+
+                       <div class="question1 ml-sm-7 pl-sm-5 pt-2">
+                            <table>
+                                <thad>၂။ သင်သည်ဖေ့စဘွတ် (facebook)အသုံးပြုရခြင်းမှာ အောက်ဖော်ပြပါအချက်များ အတွက်ဖြစ်ပါသည်။ (ကိုက်ညီမှုရှိသည့်အချက်တို့ကိုအမှန်ခြစ်ပေးပါ။) </thad>
+                                <tbody>
+                                    <tr>
+                                        <ul class='likert'>
+                                          <li>
+                                            <input type="checkbox" name="reson_using" value="1">
+                                            <label>သတင်းအချက်အလက်များကိုသိရှိစေရန်</label>
+                                          </li>
+                                          <li>
+                                            <input type="checkbox" name="reson_using" value="2">
+                                            <label>မိသားစု၊သူငယ်ချင်း၊မိတ်ဆွေ၊ဆွေမျိုးများနှင့်အဆက်အသွယ်ရှိစေရန်</label>
+                                          </li>
+                                          <li>
+                                            <input type="checkbox" name="reson_using" value="3">
+                                            <label>သူငယ်ချင်းအသစ်၊မိတ်ဆွေအသစ်များနှင့်သိရှိရန်</label>
+                                          </li>
+                                          <li>
+                                            <input type="checkbox" name="reson_using" value="4">
+                                            <label>မိမိနှစ်သက်သောဝါသနာပါသော ဓာတ်ပုံ၊ဗီဒီယိုများ၊ အကြောင်းအရာများကိုမျှဝေရန်</label>
+                                          </li>
+                                          <li>
+                                            <input type="checkbox" name="reson_using" value="4">
+                                            <label>မိမိဝါသနာ၊ ရည်မှန်းချက်များနှင့်ပတ်သက်သည့် အကြောင်းအရာအသစ်များကို လေ့လာမှတ်သားရန်</label>
+                                          </li>
+                                            <li>
+                                            <input type="checkbox" name="reson_using" value="4">
+                                            <label>ဖေ့စဘွတ်အား ဖျော်ဖြေမှုတစ်ခုအနေဖြင့် အသုံးပြုရန်</label>
+                                          </li>
+                                        </ul>
+                                    </tr>
+                                </tbody>
+                          </table>
+                        </div>
+         <br>
+
+                       <div class="question1 ml-sm-7 pl-sm-5 pt-2">
+                            <table>
+                                <thad>၃။ လက်ရှိသင်အသုံးပြုနေသည့်အကောင့်(account)တွင်ခန့်မှန်းခြေအားဖြင့်သူငယ်ချင်းအရေအတွက်မည်မျှလောက်ရှိပါသလဲ။</thad>
+                                <tbody>
+                                    <tr>
+                                        <ul class='likert'>
+                                          <li>
+                                            <input type="radio" name="friend" value="1">
+                                            <label>သူငယ်ချင်း ၃၀၀ အောက်</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="friend" value="2">
+                                            <label>သူငယ်ချင်း ၃၀၀ မှ ၁၀၀၀ ကြား</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="friend" value="3">
+                                            <label>သူငယ်ချင်း ၁၀၀၀ မှ ၃၀၀၀ ကြား</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="friend" value="4">
+                                            <label>သူငယ်ချင်း ၃၀၀၀ မှ ၅၀၀၀ ကြာ</label>
+                                          </li>
+                                        </ul>
+                                    </tr>
+                                </tbody>
+                          </table>
+                        </div>
+
+                  <br>
+
+                       <div class="question1 ml-sm-7 pl-sm-5 pt-2">
+                            <table>
+                                <thad>၄။ လက်ရှိသင်အသုံးပြုနေသည့် အကောင့်(account)တွင် အောက်ဖော်ပြပါအဖွဲ့၊ ဂရုများ(group)နှင့်ချိတ်ဆက်ထား(join)ဖြစ်ပါသလား။ (Join ထားသည့် Group များကို ရွေးပေးပါ။)</thad>
+                                <tbody>
+                                    <tr>
+                                        <ul class='likert'>
+                                          <li>
+                                            <input type="checkbox" name="group_membersihp" value="1">
+                                            <label>သင်​၏စီးပွားရေး၊အလုပ်အကိုင်နှင့်ပတ်သက်ဆက်စပ်သောအဖွဲ့၊ဂရုများ</label>
+                                          </li>
+                                          <li>
+                                            <input type="checkbox" name="group_membersihp" value="2">
+                                            <label>သင်​၏ပညာရေးနှင့်ပတ်သက်ဆက်စပ်သောအဖွဲ့၊ဂရုများ</label>
+                                          </li>
+                                          <li>
+                                            <input type="checkbox" name="group_membersihp" value="3">
+                                            <label>သင်​၏နှစ်သက်မှု၊ဝါသနာပါမှုအပေါ်အခြေခံထားသောအဖွဲ့၊ဂရုများ (ဥပမာ-တောင်တက်အသင်း၊အစားအသောက်နှင့်ဆိုင်သောဂရုများ)</label>
+                                          </li>
+                                          <li>
+                                            <input type="checkbox" name="group_membersihp" value="4">
+                                            <label>  သင်၏ဒေသ၊ရပ်ရွာကိစ္စရပ်များနှင့်ပတ်သက်ဆက်စပ်သောအဖွဲ့၊ဂရုများ (ဥပမာ-လှုပ်လှုပ်ရှားရှား မန္တလေး သတင်းများ၊   မန္တလေးမြို့တော် စည်ပင်သို့တိုင်ကြားတင်ပြချက်များ)</label>
+                                          </li>
+                                        </ul>
+                                    </tr>
+                                </tbody>
+                          </table>
+                        </div>
+                  <br>
+                       <div class="question1 ml-sm-7 pl-sm-5 pt-2">
+                            <table>
+                                <thad>၅။ သင်သည်ဖေ့စဘွတ်(facebook)ကို နိုင်ငံရေး၊လူမှုရေးဆိုင်ရာကိစ္စရပ်များနှင့် ပတ်သက်သည့် သတင်းအချက်အလက်များကိုရရှိစေရန်၊ သိရှိစေရန်အတွက် အဓိကထားပြီးသုံးဖြစ်ပါသည်။</thad>
+                                <tbody>
+                                    <tr>
+                                        <ul class='likert'>
+                                          <li>
+                                            <input type="radio" name="information_use" value="5">
+                                            <label>မှန်ပါသည်</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="information_use" value="4">
+                                            <label>အနည်းငယ်မှန်ပါသည်</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="information_use" value="3">
+                                            <label>ကြားနေ</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="information_use" value="2">
+                                            <label>အနည်းငယ်မှားပါသည်</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="information_use" value="1">
+                                            <label>မှားပါသည်</label>
+                                          </li>
+                                        </ul>
+                                    </tr>
+                                </tbody>
+                          </table>
+                        </div>
+                       <br>
+                       <div class="question1 ml-sm-7 pl-sm-5 pt-2">
+                            <table>
+                                <thad>၆။ သင်သည်ဖေ့စဘွတ်ခ်(facebook)ကို မိသားစု၊သူငယ်ချင်း၊မိတ်ဆွေ၊ဆွေမျိုးများနှင့်အဆက်အသွယ်ရှိစေရန်အတွက်အဓိကထားပြီးသုံးဖြစ်ပါသည်။ </thad>
+                                <tbody>
+                                    <tr>
+                                        <ul class='likert'>
+                                          <li>
+                                            <input type="radio" name="SIU_1" value="5">
+                                            <label>မှန်ပါသည်</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="SIU_1" value="4">
+                                            <label>အနည်းငယ်မှန်ပါသည်</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="SIU_1" value="3">
+                                            <label>ကြားနေ</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="SIU_1" value="2">
+                                            <label>အနည်းငယ်မှားပါသည်</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="SIU_1" value="1">
+                                            <label>မှားပါသည်</label>
+                                          </li>
+                                        </ul>
+                                    </tr>
+                                </tbody>
+                          </table>
+                        </div>
+                        <br>
+                       <div class="question1 ml-sm-7 pl-sm-5 pt-2">
+                            <table>
+                                <thad>၇။ သင်သည်ဖေ့စဘွတ်(facebook)ကို သူငယ်ချင်းအသစ်၊မိတ်ဆွေအသစ်များနှင့်တွေ့ဆုံရန်၊သိရှိရန်အတွက်အဓိကထားပြီးသုံးဖြစ်ပါသည် </thad>
+                                <tbody>
+                                    <tr>
+                                        <ul class='likert'>
+                                          <li>
+                                            <input type="radio" name="SIU_2" value="5">
+                                            <label>မှန်ပါသည်</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="SIU_2" value="4">
+                                            <label>အနည်းငယ်မှန်ပါသည်</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="SIU_2" value="3">
+                                            <label>ကြားနေ</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="SIU_2" value="2">
+                                            <label>အနည်းငယ်မှားပါသည်</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="SIU_2" value="1">
+                                            <label>မှားပါသည်</label>
+                                          </li>
+                                        </ul>
+                                    </tr>
+                                </tbody>
+                          </table>
+                       </div>
+                       <br>
+                       <div class="question1 ml-sm-7 pl-sm-5 pt-2">
+                            <table>
+                                <thad>၈။ သင်​၏ဖေ့စဘွတ်(facebook)သူငယ်ချင်းမိတ်ဆွေများမှရေးသားမျှဝေ(share)သောပို့စ်(post)များမှတဆင့် သင်သည် နိုင်ငံရေး၊လူမှုရေးဆိုင် ရာကိစ္စရပ်များအားပိုမိုသိရှိလာရပါသည်။  </thad>
+                                <tbody>
+                                    <tr>
+                                        <ul class='likert'>
+                                          <li>
+                                            <input type="radio" name="SIU_3" value="5">
+                                            <label>မှန်ပါသည်</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="SIU_3" value="4">
+                                            <label>အနည်းငယ်မှန်ပါသည်</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="SIU_3" value="3">
+                                            <label>ကြားနေ</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="SIU_3" value="2">
+                                            <label>အနည်းငယ်မှားပါသည်</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="SIU_3" value="1">
+                                            <label>မှားပါသည်</label>
+                                          </li>
+                                        </ul>
+                                    </tr>
+                                </tbody>
+                          </table>
+                        </div>
+                       <br>
+                       <div class="question1 ml-sm-7 pl-sm-5 pt-2">
+                            <table>
+                                <thad>၉။ သင်သည်ဖေ့စဘွတ်(facebook)ကို ဖျော်ဖြေမှုတစ်ခုအနေဖြင့်အဓိကထားပြီးသုံးဖြစ်ပါသည်။  </thad>
+                                <tbody>
+                                    <tr>
+                                        <ul class='likert'>
+                                          <li>
+                                            <input type="radio" name="entertainment_use1" value="5">
+                                            <label>မှန်ပါသည်</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="entertainment_use1" value="3">
+                                            <label>အနည်းငယ်မှန်ပါသည်</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="entertainment_use1" value="3">
+                                            <label>ကြားနေ</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="entertainment_use1" value="2">
+                                            <label>အနည်းငယ်မှားပါသည်</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="entertainment_use1" value="1">
+                                            <label>မှားပါသည်</label>
+                                          </li>
+                                        </ul>
+                                    </tr>
+                                </tbody>
+                          </table>
+                        </div>
+                        <br>
+                       <div class="question1 ml-sm-7 pl-sm-5 pt-2">
+                            <table>
+                                <thad>၁၀။ သင်သည်ဖေ့စဘွတ်ခ်(facebook)ကို သင်နှစ်သက်သော၊ဝါသနာပါသောဓာတ်ပုံ၊ဗီဒီယိုများအားလွတ်လပ်ပေါ့ပါးစွာ မျှဝေရန်(share) အတွက် အဓိကထားပြီးသုံးဖြစ်ပါသည်။ </thad>
+                                <tbody>
+                                    <tr>
+                                        <ul class='likert'>
+                                          <li>
+                                            <input type="radio" name="entertainment_use2" value="5">
+                                            <label>မှန်ပါသည်</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="entertainment_use2" value="4">
+                                            <label>အနည်းငယ်မှန်ပါသည်</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="entertainment_use2" value="3">
+                                            <label>ကြားနေ</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="entertainment_use2" value="2">
+                                            <label>အနည်းငယ်မှားပါသည်</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="entertainment_use2" value="1">
+                                            <label>မှားပါသည်</label>
+                                          </li>
+                                        </ul>
+                                    </tr>
+                                </tbody>
+                          </table>
+                        </div>
+                       <br>
+                       <div class="question1 ml-sm-7 pl-sm-5 pt-2">
+                            <table>
+                                <thad>၁၁။ သင်သည် ဖေ့စဘွတ်ခ်(facebook)မှတဆင့် သင်ချိတ်ဆက်ပါဝင်ထားသော(joinလုပ်ထားသော)အဖွဲ့၊ဂရုများတွင် နိုင်ငံရေး၊လူမှုရေး ဆိုင်ရာသတင်းအချက်အလက်များကိုမျှဝေခြင်း(share) သို့မဟုတ် ကိုယ်တိုင်ရေးသားခြင်းမျိုးအတွက်အဓိကထားအသုံးပြုဖြစ်ပါသည်။</thad>
+                                <tbody>
+                                    <tr>
+                                        <ul class='likert'>
+                                          <li>
+                                            <input type="radio" name="political_efficacy" value="5">
+                                            <label>မှန်ပါသည်</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="political_efficacy" value="4">
+                                            <label>အနည်းငယ်မှန်ပါသည်</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="political_efficacy" value="3">
+                                            <label>ကြားနေ</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="political_efficacy" value="2">
+                                            <label>အနည်းငယ်မှားပါသည်</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="political_efficacy" value="1">
+                                            <label>မှားပါသည်</label>
+                                          </li>
+                                        </ul>
+                                    </tr>
+                                </tbody>
+                          </table>
+                        </div>
+                       <br>
+                       <div class="question1 ml-sm-7 pl-sm-5 pt-2">
+                            <table>
+                                <thad>၁၂။ ဖေ့စဘွတ်ခ်(facebook)မှ နိုင်ငံရေး၊လူမှုရေးဆိုင်ရာပို့စ်(post)များအားဖတ်ရှုခြင်း၊ မှတ်ချက်ပေးခြင်း(commenting)၊ပြန်လည်မျှဝေခြင်း (sharing)နှင့် မိမိကိုယ်တိုင်၎င်းပို့စ်(post)များအားရေးသားခြင်းများပြုလုပ်ခြင်းကြောင့် နိုင်ငံရေး၊လူမှုရေးဆိုင်ရာကိစ္စရပ်များအပေါ် ပိုမို နားလည်သဘောပေါက်လာပါသည်။</thad>
+                                <tbody>
+                                    <tr>
+                                        <ul class='likert'>
+                                          <li>
+                                            <input type="radio" name="OEP_1" value="5">
+                                            <label>ထောက်ခံပါသည်</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="OEP_1" value=4>
+                                            <label>အနည်းငယ်ထောက်ခံပါသည်</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="OEP_1" value="3">
+                                            <label>မသိပါ သို့မဟုတ် ကြားနေ</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="OEP_1" value="2">
+                                            <label>အနည်းငယ်ကန့်ကွက်ပါသည်</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="OEP_1" value="1">
+                                            <label>ကန့်ကွက်ပါသည်</label>
+                                          </li>
+                                        </ul>
+                                    </tr>
+                                </tbody>
+                          </table>
+                        </div>
+                       <br>
+                       <div class="question1 ml-sm-7 pl-sm-5 pt-2">
+                            <table>
+                                <thad>၁၃။ သင်သည်နိုင်ငံရေး၊ လူမှုရေးဆိုင်ရာကိစ္စရပ်များနှင့်ပတ်သက်သည့်ပို့စ်(post)များအား မျှဝေခြင်း(share)၊ မိမိကိုယ်တိုင်ရေးသားခြင်း များပြုလုပ်ဖြစ်ပါသည်။</thad>
+                                <tbody>
+                                    <tr>
+                                        <ul class='likert'>
+                                          <li>
+                                            <input type="radio" name="OEP_2" value="5">
+                                            <label>သဘောတူပါသည်</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="OEP_2" value="4">
+                                            <label>အနည်းငယ်သဘောတူပါသည်</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="OEP_2" value="3">
+                                            <label>ကြားနေ</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="OEP_2" value="2">
+                                            <label>အနည်းငယ်သဘောမတူပါ</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="OEP_2" value="1">
+                                            <label>သဘောမတူပါ</label>
+                                          </li>
+                                        </ul>
+                                    </tr>
+                                </tbody>
+                          </table>
+                        </div>
+                        <br>
+                       <div class="question1 ml-sm-7 pl-sm-5 pt-2">
+                            <table>
+                                <thad>၁၄။ သင်အသုံးပြုနေသည့်ဖေ့စဘွတ် အကောင့်ပရိုဖိုင်ပုံများ (facebook account's profile picture)ကို နိုင်ငံရေး၊လူမှုရေးဆိုင်ရာ တံဆိပ် ပါသော/စာတန်းပါသော Logo အဖြစ် ပြောင်းဖြစ်ပါလား။ (ဉပမာ- Vitoria Justic / ရွေးကောက်ပွဲဆိုင်ရာ/ ပါတီဆိုင်ရာ)</thad>
+                                <tbody>
+                                    <tr>
+                                        <ul class='likert'>
+                                          <li>
+                                            <input type="radio" name="OEP_3" value="1">
+                                            <label>ပြောင်းဖြစ်ပါသည်</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="OEP_3" value="0">
+                                            <label>မပြောင်းဖြစ်ပါသည်</label>
+                                          </li>
+                                        </ul>
+                                    </tr>
+                                </tbody>
+                          </table>
+                        </div>
+                       <br>
+                       <br>
+                       <div class="question1 ml-sm-7 pl-sm-5 pt-2">
+                            <table>
+                                <thad>၁၅။ နိုင်ငံရေး၊လူမှုရေးဆိုင်ရာဖေ့စဘွတ်ဂရုများတွင် သင်ပါဝင်ဆောင်ရွက်ထားသော အချက်များသည် အောက်ဖော်ပြပါအချက်များနှင့် ကိုက်ညီမှု ရှိပါသလား။ (ကိုက်ညီမှုရှိသည်တို့ကို ရွေးချယ်ပေးပါ။)</thad>
+                                <tbody>
+                                    <tr>
+                                        <ul class='likert'>
+                                          <li>
+                                            <input type="checkbox" name="OEP_4" value="1">
+                                            <label>အဖွဲ့ဝင်တစ်ယောက်အဖြစ်သာပါဝင်ပါသည်</label>
+                                          </li>
+                                          <li>
+                                            <input type="checkbox" name="OEP_4" value="2">
+                                            <label>ပို့စ်များအားမျှဝေခြင်း၊ရေးသားခြင်းများလည်းလုပ်ဖြစ်ပါသည်</label>
+                                          </li>
+                                          <li>
+                                            <input type="checkbox" name="OEP_4" value="3">
+                                            <label>ထိုနိုင်ငံရေး၊လူမှုရေးဆိုင်ရာဖေ့စဘွတ်ဂရုများအားဖွဲ့စည်းကာပို့စ်များအားစီမံခန့်ခွဲခြင်းများလည်းလုပ်ဖြစ်ပါသည်</label>
+                                          </li>
+                                          <li>
+                                            <input type="checkbox" name="OEP_4" value="4">
+                                            <label>အခြား</label>
+                                          </li>
+                                        </ul>
+                                    </tr>
+                                </tbody>
+                          </table>
+                        </div>
+                       <br>
+                       <div class="question1 ml-sm-7 pl-sm-5 pt-2">
+                            <table>
+                                <thad>၁၆။ သင်သည်နိုင်ငံရေး၊ လူမှုရေးဆိုင်ရာကိစ္စရပ်များနှင့် ပတ်သက်သောထင်မြင်ချက်များ၊ ယူဆချက်များကိုသူငယ်ချင်း၊မိတ်ဆွေများနှင့် ဝိုင်းဖွဲ့တွေ့ဆုံချိန်တွင်အပြန်အလှ​န်ဆွေးနွေးဖြစ်ပါသလား။</thad>
+                                <tbody>
+                                    <tr>
+                                        <ul class='likert'>
+                                          <li>
+                                            <input type="radio" name="OFEP_1" value="1">
+                                            <label>ဆွေးနွေးဖြစ်ပါသည်</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="OFEP_1" value="0">
+                                            <label>မဆွေးနွေးဖြစ်ပါသည်</label>
+                                          </li>
+                                        </ul>
+                                    </tr>
+                                </tbody>
+                          </table>
+                        </div>
+                       <br>
+                       <div class="question1 ml-sm-7 pl-sm-5 pt-2">
+                            <table>
+                                <thad>၁၇။ သင်သည်နိုင်ငံရေး၊လူမှုရေးဆိုင်ရာကိစ္စရပ်များအပေါ် သင်​၏သဘောထားအမြင်ကိုဖော်ပြသောအနေဖြင့် ထိုကိစ္စရပ်များနှင့်ဆက်စပ်သော သင်္ကေတများပြုလုပ်ကာ စတစ်ကာများတပ်ဆင်ခြင်း၊ဗီနိုင်းများပြုလုပ်ခြင်း၊တူညီဝတ်စုံများဝတ်ဆင်ခြင်းတို့ကိုပြုလုပ်ဖြစ်ပါသလား။</thad>
+                                <tbody>
+                                    <tr>
+                                        <ul class='likert'>
+                                          <li>
+                                            <input type="radio" name="OFEP_2" value="1">
+                                            <label>ပြုလုပ်ဖြစ်ပါသည်</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="OFEP_2" value="0">
+                                            <label>မပြုလုပ်ဖြစ်ပါ</label>
+                                          </li>
+                                        </ul>
+                                    </tr>
+                                </tbody>
+                          </table>
+                        </div>
+                       <br>
+                       <div class="question1 ml-sm-7 pl-sm-5 pt-2">
+                            <table>
+                                <thad>၁၈။သင်သည်နိုင်ငံရေး၊လူမှုရေးဆိုင်ရာကိစ္စရပ်များအပေါ်တွင်အခြေခံပြီးဖြစ်ပေါ်လာသောပြည်သူလူထုဆန္ဒထောက်ခံပွဲများ၊စီတန်းလှည့်လည် မှုများ၊ဆန္ဒပြပွဲများတို့တွင်ချိတ်ဆက်ပါဝင်ဖူးပါသလား။ </thad>
+                                <tbody>
+                                    <tr>
+                                        <ul class='likert'>
+                                          <li>
+                                            <input type="radio" name="OFEP_3" value="1">
+                                            <label>ပါဝင်ဖူးပါသည်</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="OFEP_3" value="0">
+                                            <label>မပါဝင်ဖူးပါ</label>
+                                          </li>
+                                        </ul>
+                                    </tr>
+                                </tbody>
+                          </table>
+                        </div>
+                       <br>
+                       <div class="question1 ml-sm-7 pl-sm-5 pt-2">
+                            <table>
+                                <thad>၁၉။ ထိုသို့ချိတ်ဆက်ပါဝင်ဖူးပါက ၎င်း ပြည်သူလူထုဆန္ဒထောက်ခံပွဲများ၊စီတန်းလှည့်လည်မှုများ၊ဆန္ဒပြပွဲများအတွက် လူစုမည့်နေရာ၊အချိန် တို့နှင့် ပတ်သက်သောအချက်အလက်များကို ဖေ့စဘွတ်(facebook)မှတဆင့်သိရှိရပါသည်။ </thad>
+                                <tbody>
+                                    <tr>
+                                        <ul class='likert'>
+                                          <li>
+                                            <input type="radio" name="OFEP_4" value="1">
+                                            <label>မှန်ပါသည်</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="OFEP_4" value="0">
+                                            <label>မှားပါသည်</label>
+                                          </li>
+                                        </ul>
+                                    </tr>
+                                </tbody>
+                          </table>
+                        </div>
+                       <br>
+                       <div class="question1 ml-sm-7 pl-sm-5 pt-2">
+                            <table>
+                                <thad>၂၀။ ကျား/မ </thad>
+                                <tbody>
+                                    <tr>
+                                        <ul class='likert'>
+                                          <li>
+                                            <input type="radio" name="gender" value="1">
+                                            <label>ကျား</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="gender" value="0">
+                                            <label>မ</label>
+                                          </li>
+                                        </ul>
+                                    </tr>
+                                </tbody>
+                          </table>
+                        </div>
+                       <br>
+                       <div class="question1 ml-sm-7 pl-sm-5 pt-2">
+                            <table>
+                                <thad>၂၁။ အသက် </thad>
+                                <tbody>
+                                    <tr>
+                                        <ul class='likert'>
+                                            <ul class='likert'>
+                                          <li>
+                                            <input type="radio" name="age" value="under 32">
+                                            <label>၁၈ နှစ်အောက်</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="age" value="beween 18 and 30">
+                                            <label>၁၈နှစ် နှင့် ၃၀ ကြား</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="age" value="beween 30 and 45">
+                                            <label>၃၀နှစ် နှင့် ၄၅နှစ် ကြား</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="age" value="over 45">
+                                            <label>၄၅ နှစ်အထက်</label>
+                                          </li>
+                                        </ul>
+                                        </ul>
+                                    </tr>
+                                </tbody>
+                          </table>
+                        </div>
+                       <br>
+                       <div class="question1 ml-sm-7 pl-sm-5 pt-2">
+                            <table>
+                                <thad>၂၂။ မွေးဖွားရာဒေသ </thad>
+                                <br>
+                                <br>
+                                <tbody>
+                                    <tr>
+                                        <ul class='likert'>
+                                            <label for="cars">တိုင်း/ပြည်နယ်တစ်ခုရွေးပေးပါ :</label>
+                                                <select name="birthplace" id="cars">
+                                                  <option name="birthplace" value="1">ကချင်ပြည်နယ်</option>
+                                                  <option name="birthplace" value="2">ကယားပြည်နယ်</option>
+                                                  <option name="birthplace" value="3">ကရင်ပြည်နယ်</option>
+                                                  <option name="birthplace" value="4">ချင်းပြည်နယ်</option>
+                                                  <option name="birthplace" value="5">မွန်ပြည်နယ်</option>
+                                                  <option name="birthplace" value="6">ရခိုင်ပြည်နယ်</option>
+                                                  <option name="birthplace" value="7">ရှမ်းပြည်နယ်</option>
+                                                  <option name="birthplace" value="8">စစ်ကိုင်းတိုင်းဒေသကြီး</option>
+                                                   <option name="birthplace" value="9">မကွေးတိုင်းဒေသကြီး</option>
+                                                  <option name="birthplace" value="10">မန္တလေးတိုင်းဒေသကြီး</option>
+                                                  <option name="birthplace" value="11">ပဲခူးတိုင်းဒေသကြီး</option>
+                                                  <option name="birthplace" value="12">တနလာရီတိုင်းဒေသကြီး</option>
+                                                  <option name="birthplace" value="13">ဧရာဝတီတိုင်းဒေသကြီး</option>
+                                                  <option name="birthplace" value="14">ရန်ကုန်တိုင်းဒေသကြီး</option>
+                                                </select>
+                                        </ul>
+                                    </tr>
+                                </tbody>
+                          </table>
+                        </div>
+                        <br>
+                       <div class="question1 ml-sm-7 pl-sm-5 pt-2">
+                            <table>
+                                <thad>၂၃။ ပညာအရည်အချင်း </thad>
+                                <tbody>
+                                    <tr>
+                                        <ul class='likert'>
+                                          <li>
+                                            <input type="radio" name="education" value="0">
+                                            <label>မူလတန်း</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="education" value="1">
+                                            <label>အလယ်တန်း</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="education" value="2">
+                                            <label>အထက်တန်း</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="education" value="3">
+                                            <label>ဘွဲ့ရ</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="education" value="4">
+                                            <label>မဟာဘွဲ့ရ</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="education" value="5">
+                                            <label>ပါရဂူဘွဲ့ရ</label>
+                                          </li>
+                                           <li>
+                                            <input type="radio" name="education" value="6">
+                                            <label>အခြား</label>
+                                          </li>
+                                        </ul>
+                                    </tr>
+                                </tbody>
+                          </table>
+                        </div>
+                       <br>
+                       <div class="question1 ml-sm-7 pl-sm-5 pt-2">
+                            <table>
+                                <thad>၂၄။ အလုပ်အကိုင် </thad>
+                                <tbody>
+                                    <tr>
+                                        <ul class='likert'>
+                                          <li>
+                                            <input type="radio" name="job" value="1">
+                                            <label>ကျောင်းသား၊သူ</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="job" value="2">
+                                            <label>မှီခို</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="job" value="3">
+                                            <label>နေ့စားအလုပ်လုပ်သူ</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="job" value="4">
+                                            <label>ကုမ္ပဏီဝန်ထမ်း</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="job" value="5">
+                                            <label>အစိုးရဝန်ထမ်း</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="job" value="6">
+                                            <label>စစ်ဘက်၊ရဲဘက်ဝန်ထမ်း</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="job" value="7">
+                                            <label>ကိုယ်ပိုင်စီးပွားရေး(အသေးစား၊အလတ်စားလုပ်ငန်း)</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="job" value="8">
+                                            <label>ကိုယ်ပိုင်စီးပွားရေး(လုပ်ငန်းကြီးများ)</label>
+                                          </li>
+                                        </ul>
+                                    </tr>
+                                </tbody>
+                          </table>
+                        </div>
+                       <br>
+                       <div class="question1 ml-sm-7 pl-sm-5 pt-2">
+                            <table>
+                                <thad>၂၅။ ဝင်ငွေ </thad>
+                                <tbody>
+                                    <tr>
+                                        <ul class='likert'>
+                                          <li>
+                                            <input type="radio" name="income" value="1">
+                                            <label>၁သိန်းခွဲနှင့်အောက်</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="income" value="2">
+                                            <label>၁သိန်းခွဲ အထက်မှ ၅သိန်းကြား</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="income" value="3">
+                                            <label>၅သိန်းနှင့်၁၀သိန်းကြား</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="income" value="4">
+                                            <label>၁၀သိန်းနှင့်သိန်း၂၀ကြား</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="income" value="6">
+                                            <label>သိန်း၂၀အထက်</label>
+                                          </li>
+                                        </ul>
+                                    </tr>
+                                </tbody>
+                          </table>
+                        </div>
+                       <br>
+                       <div class="question1 ml-sm-7 pl-sm-5 pt-2">
+                            <table>
+                                <thad>၂၆။ နေထိုင်ရာ မြို့ကြီး/မြို့/ကျေးရွာ အားရွေးချယ်ပေးပါ။ </thad>
+                                <tbody>
+                                    <tr>
+                                        <ul class='likert'>
+                                          <li>
+                                            <input type="radio" name="rural_urban1" value="1">
+                                            <label>မြိုု့ကြီး (ရန်ကုန်/ မန္တလေး/ တောင်ကြီး)</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="rural_urban1" value="2">
+                                            <label>နေပြည်တော်</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="rural_urban1" value="4">
+                                            <label>ကျေးရွာ</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="rural_urban1" value="5">
+                                            <label>ပြည်ပနိုင်ငံ</label>
+                                          </li>
+                                        </ul>
+                                    </tr>
+                                </tbody>
+                          </table>
+                        </div>
+                       <br>
+                       <div class="question1 ml-sm-7 pl-sm-5 pt-2">
+                            <table>
+                                <thad>၂၇။ နေထိုင်ရာတိုင်း/ပြည်နယ်</thad>
+                                <tbody>
+                                    <tr>
+                                        <ul class='likert'>
+                                            <label for="cars">တိုင်း/ပြည်နယ်တစ်ခုရွေးပေးပါ :</label>
+                                                <select name="location" id="car">
+                                                  <option name="location" value="1">ကချင်ပြည်နယ်</option>
+                                                  <option name="location" value="2">ကယားပြည်နယ်</option>
+                                                  <option name="location" value="3">ကရင်ပြည်နယ်</option>
+                                                  <option name="location" value="4">ချင်းပြည်နယ်</option>
+                                                  <option name="location" value="5">မွန်ပြည်နယ်</option>
+                                                  <option name="location" value="6">ရခိုင်ပြည်နယ်</option>
+                                                  <option name="location" value="7">ရှမ်းပြည်နယ်</option>
+                                                  <option name="location" value="8">စစ်ကိုင်းတိုင်းဒေသကြီး</option>
+                                                   <option name="location" value="9">မကွေးတိုင်းဒေသကြီး</option>
+                                                  <option name="location" value="10">မန္တလေးတိုင်းဒေသကြီး</option>
+                                                  <option name="location" value="11">ပဲခူးတိုင်းဒေသကြီး</option>
+                                                  <option name="location" value="12">တနလာရီတိုင်းဒေသကြီး</option>
+                                                  <option name="location" value="13">ဧရာဝတီတိုင်းဒေသကြီး</option>
+                                                  <option name="location" value="14">ရန်ကုန်တိုင်းဒေသကြီး</option>
+                                                </select>
+                                        </ul>
+                                    </tr>
+                                </tbody>
+                          </table>
+                        </div>
+                       <br>
+                       <div class="question1 ml-sm-7 pl-sm-5 pt-2">
+                            <table>
+                                <thad>၂၈။ မြန်မာနိုင်ငံအတွင်းတွင်နေထိုင်သောသူဖြစ်ပါက သင်သည်</thad>
+                                <tbody>
+                                    <tr>
+                                        <ul class='likert'>
+                                          <li>
+                                            <input type="radio" name="urban2" value="1">
+                                            <label>တိုင်းဒေသကြီးအတွင်းရှိမြို့များတွင်နေထိုင်သောသူဖြစ်ပါသည်</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="urban2" value="2">
+                                            <label>တိုင်းဒေသကြီးအတွင်းရှိကျေးလက်ရွာများတွင်နေထိုင်သောသူဖြစ်ပါသည်</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="urban2" value="3">
+                                            <label>ပြည်နယ်ဒေသအတွင်းရှိမြို့များတွင်နေထိုင်သောသူဖြစ်ပါသည်</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="urban2" value="4">
+                                            <label>ပြည်နယ်ဒေသအတွင်းရှိကျေးလက်ရွာများတွင်နေထိုင်သောသူဖြစ်ပါသည်</label>
+                                          </li>
+                                        </ul>
+                                    </tr>
+                                </tbody>
+                          </table>
+                        </div>
+                       <br>
+                       <div class="question1 ml-sm-7 pl-sm-5 pt-2">
+                            <table>
+                                <thad>၂၉။ လူကြီးမင်း ထောက်ခံသော နိုင်ငံရေးပါတီ</thad>
+                                <tbody>
+                                    <tr>
+                                        <ul class='likert'>
+                                          <li>
+                                            <input type="radio" name="party" value="1">
+                                            <label>အမျိုးသားဒီမိုကရေစီအဖွဲ့ချုပ် (NLD)</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="party" value="2">
+                                            <label>ပြည်ထောင်စု ကြံ့ခိုင်ရေးနှင့်ဖွံဖြိုးရေးပါတီ</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="party" value="3">
+                                            <label>တိုင်းရင်းသားပါတီ</label>
+                                          </li>
+                                          <li>
+                                            <input type="radio" name="party" value="4">
+                                            <label>အခြား</label>
+                                          </li>
+                                        </ul>
+                                    </tr>
+                                </tbody>
+                          </table>
+                        </div>
+         <center>
+          <input class="btn btn-success " type="submit" value="Submit">
+        </center>
+     </form>
+ </div>
+            </div>
+         </div>
+      <div class="col-sm-2">
+      </div>
+   </div>
+  <script src="js/scripts.js"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html></html>

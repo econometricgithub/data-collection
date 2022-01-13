@@ -1,0 +1,17 @@
+.question1{
+width:100%;
+background:#ffffff;
+}
+
+.question2{
+width:80%;
+background:slategray;
+}
+h2{
+    color:white:
+    font-family:Shanti;
+    font-size:2.2em;
+    margin:30px;
+
+}
+h2:hover            { background-color: #3df957;}
